@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://secure.paymex.co.nz/payment/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="https://secure.paymex.co.nz/payment/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Provides an interface to allow Paymex Professional Account users to accept funds.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://secure.paymex.co.nz/payment/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="CancelSubscription">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="subscriptionCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="customerId" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="cancelledReason" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelSubscriptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CancelSubscriptionResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticationHeader" type="tns:AuthenticationHeader" />
+      <s:complexType name="AuthenticationHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BusinessId" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ResponseHeader" type="tns:ResponseHeader" />
+      <s:complexType name="ResponseHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorList" type="tns:ArrayOfServiceError" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasReturnObject" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnObjectDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnObject" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:complexType name="ArrayOfServiceError">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ServiceError" nillable="true" type="tns:ServiceError" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ServiceError">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorObject" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegisterSubscription">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cardHolder" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cardNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="expiryDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="secureId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientReference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="details" type="tns:BillingDetails" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BillingDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Suburb" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipAddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipAddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipSuburb" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipPostCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipCountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegisterSubscriptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegisterSubscriptionResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubscriptionSetupHeader" type="tns:SubscriptionSetupHeader" />
+      <s:complexType name="SubscriptionSetupHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SubscriptionCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AdditionalSetupFee" nillable="true" type="s:decimal" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="TestModeHeader" type="tns:TestModeHeader" />
+      <s:complexType name="TestModeHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EnableTestMode" type="s:boolean" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ProcessCreditCardPayment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cardHolder" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cardNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="expiryDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="secureId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientReference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="details" type="tns:BillingDetails" />
+            <s:element minOccurs="1" maxOccurs="1" name="testMode" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessCreditCardPaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProcessCreditCardPaymentResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CancelSubscriptionSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelSubscription" />
+  </wsdl:message>
+  <wsdl:message name="CancelSubscriptionSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelSubscriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelSubscriptionAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelSubscriptionResponseHeader">
+    <wsdl:part name="ResponseHeader" element="tns:ResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSubscriptionSoapIn">
+    <wsdl:part name="parameters" element="tns:RegisterSubscription" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSubscriptionSoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterSubscriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSubscriptionAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSubscriptionResponseHeader">
+    <wsdl:part name="ResponseHeader" element="tns:ResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSubscriptionSubscriptionSetupHeader">
+    <wsdl:part name="SubscriptionSetupHeader" element="tns:SubscriptionSetupHeader" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSubscriptionTestModeHeader">
+    <wsdl:part name="TestModeHeader" element="tns:TestModeHeader" />
+  </wsdl:message>
+  <wsdl:message name="ProcessCreditCardPaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessCreditCardPayment" />
+  </wsdl:message>
+  <wsdl:message name="ProcessCreditCardPaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessCreditCardPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcessCreditCardPaymentAuthenticationHeader">
+    <wsdl:part name="AuthenticationHeader" element="tns:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ProcessCreditCardPaymentResponseHeader">
+    <wsdl:part name="ResponseHeader" element="tns:ResponseHeader" />
+  </wsdl:message>
+  <wsdl:portType name="Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap">
+    <wsdl:operation name="CancelSubscription">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method is used to cancel a customers subscription payment. Please note: subscriptions can be set up and managed by logging into https://secure.paymex.co.nz/</wsdl:documentation>
+      <wsdl:input message="tns:CancelSubscriptionSoapIn" />
+      <wsdl:output message="tns:CancelSubscriptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterSubscription">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method is used to start a new subscription payment. Please note: subscriptions can be set up and managed by logging into https://secure.paymex.co.nz/</wsdl:documentation>
+      <wsdl:input message="tns:RegisterSubscriptionSoapIn" />
+      <wsdl:output message="tns:RegisterSubscriptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessCreditCardPayment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method can be used to accept Credit Card account payments</wsdl:documentation>
+      <wsdl:input message="tns:ProcessCreditCardPaymentSoapIn" />
+      <wsdl:output message="tns:ProcessCreditCardPaymentSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap" type="tns:Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CancelSubscription">
+      <soap:operation soapAction="https://secure.paymex.co.nz/payment/CancelSubscription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelSubscriptionAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelSubscriptionResponseHeader" part="ResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterSubscription">
+      <soap:operation soapAction="https://secure.paymex.co.nz/payment/RegisterSubscription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:RegisterSubscriptionAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+        <soap:header message="tns:RegisterSubscriptionSubscriptionSetupHeader" part="SubscriptionSetupHeader" use="literal" />
+        <soap:header message="tns:RegisterSubscriptionTestModeHeader" part="TestModeHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:RegisterSubscriptionResponseHeader" part="ResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessCreditCardPayment">
+      <soap:operation soapAction="https://secure.paymex.co.nz/payment/ProcessCreditCardPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ProcessCreditCardPaymentAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ProcessCreditCardPaymentResponseHeader" part="ResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap12" type="tns:Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CancelSubscription">
+      <soap12:operation soapAction="https://secure.paymex.co.nz/payment/CancelSubscription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelSubscriptionAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelSubscriptionResponseHeader" part="ResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterSubscription">
+      <soap12:operation soapAction="https://secure.paymex.co.nz/payment/RegisterSubscription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RegisterSubscriptionAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+        <soap12:header message="tns:RegisterSubscriptionSubscriptionSetupHeader" part="SubscriptionSetupHeader" use="literal" />
+        <soap12:header message="tns:RegisterSubscriptionTestModeHeader" part="TestModeHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RegisterSubscriptionResponseHeader" part="ResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessCreditCardPayment">
+      <soap12:operation soapAction="https://secure.paymex.co.nz/payment/ProcessCreditCardPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ProcessCreditCardPaymentAuthenticationHeader" part="AuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ProcessCreditCardPaymentResponseHeader" part="ResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Paymex_x0020_Payment_x0020_Web_x0020_Service">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Provides an interface to allow Paymex Professional Account users to accept funds.</wsdl:documentation>
+    <wsdl:port name="Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap" binding="tns:Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap">
+      <soap:address location="https://secure.paymex.co.nz/payment/paymex.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap12" binding="tns:Paymex_x0020_Payment_x0020_Web_x0020_ServiceSoap12">
+      <soap12:address location="https://secure.paymex.co.nz/payment/paymex.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
